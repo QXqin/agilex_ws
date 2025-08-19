@@ -1,10 +1,9 @@
-# LIMO »úÆ÷ÈËÆô¶¯ÓëÅäÖÃÖ¸ÄÏ
+# LIMO æœºå™¨äººå¯åŠ¨ä¸é…ç½®æŒ‡å—
 
-## ? Ç°ÖÃÒÀÀµ°²×°
-ÔÚ¿ªÊ¼Ç°ÇëÈ·±£ÒÑÍê³ÉÒÔÏÂÒÀÀµ°²×°£º
+## ğŸ“¦ å‰ç½®ä¾èµ–å®‰è£…
+åœ¨å¼€å§‹å‰è¯·ç¡®ä¿å·²å®Œæˆä»¥ä¸‹ä¾èµ–å®‰è£…ï¼š
 
-bash
-
+```bash
 sudo apt-get install ros-melodic-rosbridge-server \
 
 ros-melodic-web-video-server \
@@ -16,58 +15,54 @@ ros-melodic-rosauth \
 python3-websocket
 
 pip3 install tornado
-
-## ? Ò»¼üÆô¶¯ÅäÖÃ
-### 1. ÎÄ¼ş²¿Êğ
-- ½« `limo_startup.launch` ¸´ÖÆµ½£º  
+```
+## ğŸš€ ä¸€é”®å¯åŠ¨é…ç½®
+### 1. æ–‡ä»¶éƒ¨ç½²
+- å°† `limo_startup.launch` å¤åˆ¶åˆ°ï¼š  
   `~/agilex_ws/src/limo_ros/limo_bringup/launch/`
-- ÆäËû×é¼şÎÄ¼ş·ÅÖÃÓÚ×ÀÃæÄ¿Â¼
+- å…¶ä»–ç»„ä»¶æ–‡ä»¶æ”¾ç½®äºæ¡Œé¢ç›®å½•
 
-### 2. È¨ÏŞÉèÖÃ
-bash
-
+### 2. æƒé™è®¾ç½®
+```bash
 chmod +x LIMO_Startup.desktop
 
 chmod +x start_limo.sh
-
-### 3. Æô¶¯·½Ê½£¨ÈÎÑ¡ÆäÒ»£©
-- **×ÀÃæ¿ì½İ·½Ê½**£ºË«»÷ `LIMO_Startup.desktop`
-- **ÖÕ¶ËÃüÁîÆô¶¯**£º
-bash
-
+```
+### 3. å¯åŠ¨æ–¹å¼ï¼ˆä»»é€‰å…¶ä¸€ï¼‰
+- **æ¡Œé¢å¿«æ·æ–¹å¼**ï¼šåŒå‡» `LIMO_Startup.desktop`
+- **ç»ˆç«¯å‘½ä»¤å¯åŠ¨**ï¼š
+```bash
 roslaunch limo_bringup limo_startup.launch
-
-## ? ÍøÕ¾·şÎñÆô¶¯Á÷³Ì
-> ?? Ã¿´ÎÊ¹ÓÃÇ°ĞèÖ´ĞĞ»·¾³³õÊ¼»¯£º
+```
+## ğŸŒ ç½‘ç«™æœåŠ¡å¯åŠ¨æµç¨‹
+> âš ï¸ æ¯æ¬¡ä½¿ç”¨å‰éœ€æ‰§è¡Œç¯å¢ƒåˆå§‹åŒ–ï¼š
 > ```bash
 > source ~/agilex_ws/devel/setup.bash
 > roscore
 > ```
 
-### ºËĞÄ·şÎñÆô¶¯ÃüÁî
-| Ä£¿é | ÃüÁî |
+### æ ¸å¿ƒæœåŠ¡å¯åŠ¨å‘½ä»¤
+| æ¨¡å— | å‘½ä»¤ |
 |------|------|
-| µ×ÅÌ¿ØÖÆ | `roslaunch limo_base limo_base.launch` |
-| ROSÍ¨ĞÅÇÅ | `roslaunch rosbridge_server rosbridge_websocket.launch` |
-| ÊÓÆµÁ÷·şÎñ | `rosrun web_video_server web_video_server _port:=8080` |
-| USBÉãÏñÍ· | `rosrun usb_cam usb_cam_node _video_device:=/dev/video0 _pixel_format:=yuyv` |
+| åº•ç›˜æ§åˆ¶ | ```roslaunch limo_base limo_base.launch``` |
+| ROSé€šä¿¡æ¡¥ | ```roslaunch rosbridge_server rosbridge_websocket.launch``` |
+| è§†é¢‘æµæœåŠ¡ | ```rosrun web_video_server web_video_server _port:=8080``` |
+| USBæ‘„åƒå¤´ | ```rosrun usb_cam usb_cam_node _video_device:=/dev/video0 _pixel_format:=yuyv``` |
 
-## ? µ¼º½Óë×ø±êÏµÍ³
-### ×ø±êÉÏ±¨ÅäÖÃ
-bash
-
-Æô¶¯µ¼º½ÏµÍ³
+## ğŸ§­ å¯¼èˆªä¸åæ ‡ç³»ç»Ÿ
+### åæ ‡ä¸ŠæŠ¥é…ç½®
+```bash
+å¯åŠ¨å¯¼èˆªç³»ç»Ÿ
 roslaunch limo_bringup limo_navigation_diff.launch
 
-³õÊ¼»¯µ×ÅÌÍ¨ĞÅ£¨¹Ø±ÕTF±ä»»·¢²¼£©
+åˆå§‹åŒ–åº•ç›˜é€šä¿¡ï¼ˆå…³é—­TFå˜æ¢å‘å¸ƒï¼‰
 roslaunch limo_bringup limo_start.launch pub_odom_tf:=false
 
-Æô¶¯Î»ÖÃÉÏ±¨·şÎñ
+å¯åŠ¨ä½ç½®ä¸ŠæŠ¥æœåŠ¡
 roslaunch limo_reporting pose_reporter.launch
-
-### ? ¶àµãÑ²º½ÏµÍ³
-Æô¶¯Â·¾¶Ñ²º½³ÌĞò£º
-bash
-
+```
+### ğŸ” å¤šç‚¹å·¡èˆªç³»ç»Ÿ
+å¯åŠ¨è·¯å¾„å·¡èˆªç¨‹åºï¼š
+```bash
 rosrun single_point single_point_nav.py
-
+```
