@@ -4,16 +4,21 @@
 在开始前请确保已完成以下依赖安装：
 
 ```bash
-sudo apt-get install ros-melodic-rosbridge-server \
-
-ros-melodic-web-video-server \
-
-ros-melodic-rosapi \
-
-ros-melodic-rosauth \
-
+sudo apt-get install ros-melodic-rosbridge-server 
+```
+```
+ros-melodic-web-video-server 
+```
+```
+ros-melodic-rosapi 
+```
+```
+ros-melodic-rosauth 
+```
+```
 python3-websocket
-
+```
+```
 pip3 install tornado
 ```
 ## 🚀 一键启动配置
