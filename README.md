@@ -6,13 +6,13 @@
 ```bash
 sudo apt-get install ros-melodic-rosbridge-server 
 
-ros-melodic-web-video-server 
+sudo apt-get install ros-melodic-web-video-server 
 
-ros-melodic-rosapi 
+sudo apt-get install ros-melodic-rosapi 
 
-ros-melodic-rosauth 
+sudo apt-get install ros-melodic-rosauth 
 
-python3-websocket
+sudo apt-get install python3-websocket
 
 pip3 install tornado
 ```
