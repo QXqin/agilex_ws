@@ -1,0 +1,10 @@
+<launch>
+    <node name="command_receiver" pkg="limo_reporting" type="command_receiver.py" output="screen">
+        <param name="host" value="0.0.0.0" />
+        <param name="port" value="5000" />
+    </node>
+    
+    <node name="task_executor" pkg="limo_reporting" type="task_executor.py" output="screen" />
+    
+    <node name="task_monitor" pkg="limo_reporting" type="task_monitor.py" output="screen" />
+</launch>

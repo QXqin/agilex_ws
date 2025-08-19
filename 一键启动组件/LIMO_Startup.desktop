@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=LIMO Startup
+Comment=Start LIMO Robot and Status Monitor
+Exec=/home/agilex/Desktop/start_limo.sh
+Icon=utilities-terminal
+Terminal=true
+Type=Application
+Categories=Application;

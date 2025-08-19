@@ -1,0 +1,8 @@
+<launch>
+    <node name="pose_reporter" pkg="limo_reporting" type="pose_reporter.py" output="screen">
+        <param name="robot_id" value="limo-001" />
+        <param name="task_id" value="daily-inspection" />
+        <param name="api_url" value="http://39.107.253.156/xunjian/api/report/coordinates" />
+        <param name="report_interval" value="1.0" />
+    </node>
+</launch>

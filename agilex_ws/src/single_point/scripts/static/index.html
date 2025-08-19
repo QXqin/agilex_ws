@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROS Multipoint Navigation Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, var(--dark), #4a6491);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #FF5722, #FFC107);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .section {
+            padding: 25px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        
+        .instructions {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .instructions ul {
+            margin-left: 20px;
+        }
+        
+        .instructions li {
+            margin: 8px 0;
+        }
+        
+        .server-config {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .config-input {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .config-input label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #1976d2;
+        }
+        
+        .config-input input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #90caf9;
+            border-radius: 4px;
+            background: #f1f8fe;
+        }
+        
+        .point-container {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #f5f9ff;
+        }
+        
+        .point-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .point-title {
+            font-weight: bold;
+            color: var(--dark);
+        }
+        
+        .remove-btn {
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .remove-btn:hover {
+            background: #c0392b;
+        }
+        
+        .coordinate-inputs {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .input-group {
+            flex: 1;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 14px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .add-btn {
+            background: var(--primary);
+            color: white;
+            flex: 1;
+        }
+        
+        .add-btn:hover {
+            background: #2980b9;
+        }
+        
+        .submit-btn {
+            background: var(--success);
+            color: white;
+            flex: 1;
+        }
+        
+        .submit-btn:hover {
+            background: #27ae60;
+        }
+        
+        .clear-btn {
+            background: var(--warning);
+            color: white;
+            flex: 1;
+        }
+        
+        .clear-btn:hover {
+            background: #d35400;
+        }
+        
+        .result-container {
+            margin-top: 20px;
+        }
+        
+        .result-box {
+            background: #f1f8e9;
+            border: 1px solid #c5e1a5;
+            border-radius: 8px;
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-right: 10px;
+        }
+        
+        .arrived { background: var(--success); color: white; }
+        .failed { background: var(--danger); color: white; }
+        .invalid { background: var(--warning); color: white; }
+        
+        .point-entry {
+            padding: 8px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .point-entry:last-child {
+            border-bottom: none;
+        }
+        
+        .debug-info {
+            background: #222;
+            color: #eee;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            color: #7f8c8d;
+            background: #f9f9f9;
+        }
+        
+        @media (max-width: 768px) {
+            .coordinate-inputs {
+                flex-direction: column;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .config-input {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ROS Multipoint Navigation Test</h1>
+            <div class="logo">NAVIGATOR</div>
+        </header>
+        
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-info-circle"></i> Instructions
+            </div>
+            <div class="instructions">
+                <p>This interface is designed to test the ROS multipoint navigation API. Usage instructions:</p>
+                <ul>
+                    <li>Add target points with coordinates below</li>
+                    <li>Each point requires <b>positionX</b> and <b>positionY</b> values</li>
+                    <li>Click "Add Point" to include more waypoints</li>
+                    <li>Click "Submit Task" to send coordinates to the backend service</li>
+                    <li>Navigation results will be displayed in the results area</li>
+                </ul>
+            </div>
+            
+            <div class="section-title">
+                <i class="fas fa-server"></i> Server Configuration
+            </div>
+            <div class="server-config">
+                <div class="config-input">
+                    <label>Server IP Address</label>
+                    <input type="text" id="server-ip" value="10.110.162.3" placeholder="e.g., 10.110.162.3">
+                </div>
+                <div class="config-input">
+                    <label>Port Number</label>
+                    <input type="text" id="server-port" value="5000" placeholder="e.g., 5000">
+                </div>
+                <div class="config-input">
+                    <label>API Endpoint</label>
+                    <input type="text" id="api-endpoint" value="/api/task/cruise" readonly>
+                </div>
+            </div>
+            
+            <div class="section-title">
+                <i class="fas fa-map-marker-alt"></i> Target Points
+            </div>
+            
+            <div id="points-container">
+                <!-- Initial point -->
+                <div class="point-container" data-index="0">
+                    <div class="point-header">
+                        <div class="point-title">Point #1</div>
+                        <button class="remove-btn" disabled>Remove</button>
+                    </div>
+                    <div class="coordinate-inputs">
+                        <div class="input-group">
+                            <label>positionX (X Coordinate)</label>
+                            <input type="text" placeholder="0.0" class="x-coord" value="515">
+                        </div>
+                        <div class="input-group">
+                            <label>positionY (Y Coordinate)</label>
+                            <input type="text" placeholder="0.0" class="y-coord" value="3359.8">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="btn-group">
+                <button class="add-btn" onclick="addPoint()"><i class="fas fa-plus"></i> Add Point</button>
+                <button class="submit-btn" onclick="submitTask()"><i class="fas fa-paper-plane"></i> Submit Task</button>
+                <button class="clear-btn" onclick="clearResults()"><i class="fas fa-eraser"></i> Clear Results</button>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-poll"></i> Navigation Results
+            </div>
+            <div class="result-container">
+                <div id="result-box" class="result-box">
+                    <div style="color: #7f8c8d; text-align: center;">Navigation results will appear here...</div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            ROS Multipoint Navigation Test Interface | Using Flask & ROS Integration | POST /api/task/cruise
+        </footer>
+    </div>
+    
+    <script>
+        // Point counter
+        let pointCounter = 1;
+        
+        // Add new point
+        function addPoint() {
+            pointCounter++;
+            const pointsContainer = document.getElementById('points-container');
+            
+            const pointDiv = document.createElement('div');
+            pointDiv.className = 'point-container';
+            pointDiv.setAttribute('data-index', pointCounter);
+            
+            pointDiv.innerHTML = `
+                <div class="point-header">
+                    <div class="point-title">Point #${pointCounter}</div>
+                    <button class="remove-btn" onclick="removePoint(${pointCounter})">Remove</button>
+                </div>
+                <div class="coordinate-inputs">
+                    <div class="input-group">
+                        <label>positionX (X Coordinate)</label>
+                        <input type="text" placeholder="0.0" class="x-coord" value="${Math.floor(Math.random() * 1000)}">
+                    </div>
+                    <div class="input-group">
+                        <label>positionY (Y Coordinate)</label>
+                        <input type="text" placeholder="0.0" class="y-coord" value="${(Math.random() * 4000).toFixed(1)}">
+                    </div>
+                </div>
+            `;
+            
+            pointsContainer.appendChild(pointDiv);
+        }
+        
+        // Remove point
+        function removePoint(index) {
+            const point = document.querySelector(`.point-container[data-index="${index}"]`);
+            if (point) {
+                point.remove();
+            }
+        }
+        
+        // Get server URL
+        function getServerURL() {
+            const ip = document.getElementById('server-ip').value;
+            const port = document.getElementById('server-port').value;
+            const endpoint = document.getElementById('api-endpoint').value;
+            return `http://${ip}:${port}${endpoint}`;
+        }
+        
+        // Generate CURL command for display
+        function generateCURL(points) {
+            const pointsJson = JSON.stringify(points, null, 2);
+            const serverURL = getServerURL();
+            return `curl -X POST ${serverURL} \
+` +
+                   '  -H "Content-Type: application/json" \
+' +
+                   `  -d '${JSON.stringify(points)}'`;
+        }
+        
+        // Submit task to backend
+        function submitTask() {
+            const points = [];
+            const pointContainers = document.querySelectorAll('.point-container');
+            
+            // Collect all points
+            pointContainers.forEach(container => {
+                const xInput = container.querySelector('.x-coord');
+                const yInput = container.querySelector('.y-coord');
+                
+                points.push({
+                    positonX: xInput.value || '0.0',
+                    positonY: yInput.value || '0.0'
+                });
+            });
+            
+            // Generate and display the CURL command
+            const curlCommand = generateCURL(points);
+            
+            // Show loading status
+            document.getElementById('result-box').innerHTML = `
+                <div style="text-align: center; padding: 20px;">
+                    <div style="font-size: 36px; margin-bottom: 15px;"><i class="fas fa-robot"></i></div>
+                    <div style="margin: 10px 0; font-weight: 500;">Navigating to ${points.length} target points...</div>
+                    <div style="margin-bottom: 15px;">Sending request to: ${getServerURL()}</div>
+                    <div><i class="fas fa-spinner fa-spin"></i> Waiting for server response</div>
+                    <div class="debug-info">${curlCommand}</div>
+                </div>
+            `;
+            
+            // Send POST request to the actual server
+            const serverURL = getServerURL();
+            
+            fetch(serverURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(points)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                displayResults(data);
+            })
+            .catch(error => {
+                // In case of error, provide troubleshooting tips
+                document.getElementById('result-box').innerHTML = `
+                    <div style="padding: 15px;">
+                        <div class="error" style="background: #ffebee; padding: 15px; border-radius: 4px; margin-bottom: 15px;">
+                            <span class="status-badge failed" style="display: block; width: fit-content; margin-bottom: 10px;">REQUEST FAILED</span>
+                            <strong>Error Details:</strong> ${error.message}<br>
+                            <strong>Server URL:</strong> ${serverURL}<br>
+                        </div>
+                        <div style="background: #f5f5f5; padding: 15px; border-radius: 4px;">
+                            <h4>Troubleshooting Tips:</h4>
+                            <ul style="margin-left: 20px; margin-top: 10px;">
+                                <li>Verify ROS navigation service is running</li>
+                                <li>Check IP address and port configuration</li>
+                                <li>Ensure no firewall is blocking the connection</li>
+                                <li>Try pinging the server IP: <code>ping 10.110.162.3</code></li>
+                                <li>Copy CURL command below to test manually</li>
+                            </ul>
+                        </div>
+                        <div class="debug-info" style="margin-top: 15px;">
+                            ${curlCommand}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+        
+        // Display results
+        function displayResults(results) {
+            const resultBox = document.getElementById('result-box');
+            
+            if (!results || !results.results) {
+                resultBox.innerHTML = '<div class="error">Invalid response format</div>';
+                return;
+            }
+            
+            let resultsHtml = `<div style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #ddd;">
+                <strong>Navigation Task Completed</strong> 
+                <span style="float: right;">${new Date().toLocaleTimeString()}</span>
+            </div>`;
+            
+            results.results.forEach(result => {
+                let statusBadge = '';
+                let statusText = '';
+                
+                if (result.status === 'arrived') {
+                    statusBadge = '<span class="status-badge arrived">ARRIVED</span>';
+                    statusText = `Successfully navigated to point (${result.x}, ${result.y})`;
+                } else if (result.status === 'failed') {
+                    statusBadge = '<span class="status-badge failed">FAILED</span>';
+                    statusText = `Unable to reach point (${result.x}, ${result.y})`;
+                } else if (result.status === 'invalid_data') {
+                    statusBadge = '<span class="status-badge invalid">INVALID</span>';
+                    statusText = `Point #${result.point} data invalid: ${result.error || 'Unknown error'}`;
+                } else {
+                    statusBadge = '<span class="status-badge invalid">UNKNOWN</span>';
+                    statusText = `Point #${result.point} unknown status`;
+                }
+                
+                resultsHtml += `
+                    <div class="point-entry">
+                        ${statusBadge}
+                        Point #${result.point}: ${statusText}
+                    </div>
+                `;
+            });
+            
+            resultBox.innerHTML = resultsHtml;
+        }
+        
+        // Clear results
+        function clearResults() {
+            document.getElementById('result-box').innerHTML = 
+                '<div style="color: #7f8c8d; text-align: center;">Navigation results cleared</div>';
+        }
+        
+        // Initialize demo points
+        window.onload = function() {
+            // Add two more points by default for demo
+            addPoint();
+            addPoint();
+            
+            // Set default values for the second and third points
+            document.querySelector('.point-container[data-index="1"] .x-coord').value = "665";
+            document.querySelector('.point-container[data-index="1"] .y-coord').value = "3276.8";
+            
+            document.querySelector('.point-container[data-index="2"] .x-coord').value = "577";
+            document.querySelector('.point-container[data-index="2"] .y-coord').value = "3156.8";
+        }
+    </script>
+</body>
+</html>

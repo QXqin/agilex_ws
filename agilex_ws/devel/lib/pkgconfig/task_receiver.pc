@@ -1,0 +1,8 @@
+prefix=/home/agilex/agilex_ws/devel
+
+Name: task_receiver
+Description: Description of task_receiver
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

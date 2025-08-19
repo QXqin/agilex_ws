@@ -1,0 +1,6 @@
+<launch>
+    <node name="command_receiver" pkg="limo_reporting" type="command_receiver.py" output="screen">
+        <param name="host" value="0.0.0.0" />
+        <param name="port" value="5000" />
+    </node>
+</launch>

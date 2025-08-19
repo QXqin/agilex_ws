@@ -1,0 +1,28 @@
+<launch>
+    <!-- rosbridge -->
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
+
+    <!-- 摄像头节点 -->
+    <node pkg="web_video_server" type="web_video_server" name="web_video_server" output="screen">
+        <param name="port" value="8080"/>
+    </node>
+
+    <!-- USB摄像头 -->
+    <node pkg="usb_cam" type="usb_cam_node" name="usb_cam" output="screen">
+        <param name="video_device" value="/dev/video0"/>
+        <param name="pixel_format" value="yuyv"/>
+    </node>
+
+    <!-- 启动导航 -->
+    <include file="$(find limo_bringup)/launch/limo_navigation_diff.launch"/>
+    <include file="$(find limo_bringup)/launch/limo_start.launch">
+        <arg name="pub_odom_tf" value="false"/>
+    </include>
+
+    <!-- 巡航 -->
+    <node pkg="single_point" type="single_point_nav.py" name="single_point_nav" output="screen"/>
+
+    <!-- 上报 -->
+    <include file="$(find limo_reporting)/launch/pose_reporter.launch"/>
+</launch>
+

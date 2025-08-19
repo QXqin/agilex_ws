@@ -1,0 +1,8 @@
+prefix=/home/agilex/agilex_ws/install
+
+Name: voice
+Description: Description of voice
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

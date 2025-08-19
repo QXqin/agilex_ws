@@ -1,0 +1,2 @@
+agilex_pure_pursuit:detect_mark/ar_track_alvar/ar_track_alvar:detect_mark/ar_track_alvar/ar_track_alvar_msgs:detect_mark/detect_ros:lifter_ctr:limo_reporting:limo_ros/learning_limo:limo_ros/limo_base:limo_ros/limo_bringup:ros_astra_camera:single_point:src/camera_info_manager_py:src/cv_bridge:src/darknet_ros/darknet_ros:src/darknet_ros/darknet_ros_msgs:src/scripts/vision:voice:ydlidar_ros
+-DCATKIN_DEVEL_PREFIX=/home/agilex/agilex_ws/devel -DCMAKE_INSTALL_PREFIX=/home/agilex/agilex_ws/install -G Unix Makefiles

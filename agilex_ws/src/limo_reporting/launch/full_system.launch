@@ -1,0 +1,17 @@
+<launch>
+    <!-- Task Executor (Integrated with task execution and location reporting -->
+    <node name="task_executor" pkg="limo_reporting" type="task_executor.py" output="screen">
+        <param name="robot_id" value="limo-001" />
+        <param name="api_url" value="http://39.107.253.156/xunjian/api/report/coordinates" />
+        <param name="report_interval" value="1.0" />
+    </node>
+    
+    <!-- Command Receiver (Receive task instructions) -->
+    <node name="command_receiver" pkg="limo_reporting" type="command_receiver.py" output="screen">
+        <param name="host" value="0.0.0.0" />
+        <param name="port" value="5000" />
+    </node>
+    
+    <!-- Task Monitor (Monitor task status)-->
+    <node name="task_monitor" pkg="limo_reporting" type="task_monitor.py" output="screen" />
+</launch>

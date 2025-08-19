@@ -1,0 +1,8 @@
+prefix=/home/agilex/agilex_ws/devel
+
+Name: single_point
+Description: Description of single_point
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
