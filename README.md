@@ -14,6 +14,8 @@ sudo apt-get install ros-melodic-rosauth
 
 sudo apt-get install python3-websocket
 
+sudo apt-get install ros-melodic-usb-cam
+
 pip3 install tornado
 ```
 ## 🚀 一键启动配置
