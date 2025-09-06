@@ -53,26 +53,30 @@ roslaunch limo_bringup limo_startup.launch
 
 ## 🧭 导航与坐标系统
 ### 坐标上报配置
-```bash
 启动导航系统
+```bash
 roslaunch limo_bringup limo_navigation_diff.launch
-
+```
 初始化底盘通信（关闭TF变换发布）
+```bash
 roslaunch limo_bringup limo_start.launch pub_odom_tf:=false
-
+```
 启动位置上报服务
+```bash
 roslaunch limo_reporting pose_reporter.launch
 ```
+
 ### 📍 多点巡航系统
-启动路径巡航程序：
+启动路径巡航程序
 ```bash
 rosrun single_point single_point_nav.py
 ```
 ### 🔁 路径巡检系统
-```bash
 启动巡检服务器
+```bash
 rosrun single_point single_point_nav.py
-
+```
 启动路径跟踪控制器
+```bash
 roslaunch agilex_pure_pursuit pure_pursuit.launch
 ```
