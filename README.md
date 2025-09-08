@@ -48,6 +48,7 @@ roslaunch limo_bringup limo_startup.launch
 |------|------|
 | 底盘控制 | ```roslaunch limo_base limo_base.launch``` |
 | ROS通信桥 | ```roslaunch rosbridge_server rosbridge_websocket.launch``` |
+| ROS穿透   | ```roslaunch rosbridge_server rosbridge_websocket.launch websocket_external_port:=7017``` |
 | 视频流服务 | ```rosrun web_video_server web_video_server _port:=8080``` |
 | USB摄像头 | ```rosrun usb_cam usb_cam_node _video_device:=/dev/video0 _pixel_format:=yuyv``` |
 
