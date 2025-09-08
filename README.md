@@ -74,7 +74,7 @@ rosrun single_point single_point_nav.py
 ### 🔁 路径巡检系统
 启动巡检服务器
 ```bash
-rosrun single_point single_point_nav.py
+rosrun inspection_server inspection_server.py
 ```
 启动路径跟踪控制器
 ```bash
